@@ -2,24 +2,34 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {Button, TextField} from '@mui/material'
+import {useState } from 'react'
+import Solver from 'wordle-solver'
+
 
 
 function Suggested() {
   return (
+    <div>
 
+      </div>
   )
 }
 
-function Row() {
+function Row(props) {
   return (
     <div>
-    <TextField placeholder="Guess"/>  &nbsp; &nbsp; <TextField placeholder="Output"/>
+    <TextField onChange = {(e) => {
+      props.onChange(e.target.value, 0)
+    }} placeholder="Guess"/>  &nbsp; &nbsp; <TextField  onChange = {(e) => {
+      props.onChange(e.target.value, 1)
+    }} placeholder="Output"/>
     <br/>
     </div>
   )
 }
 
 export default function Home() {
+  var [rows, setRows] = useState([["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""]]);
   return (
     <div className={styles.container}>
       <Head>
@@ -46,12 +56,43 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <Row/>
-          <Row/>
-          <Row/>
-          <Row/>
-          <Row/>
+          <Row onChange={(e,i) => {
+            var yo = [...rows];
+            yo[0][i] = e
+            setRows(yo)
+          }}/>
+          <Row onChange={(e,i) => {
+            var yo = [...rows];
+            yo[1][i] = e
+            setRows(yo)
+          }}/>
+          <Row onChange={(e,i) => {
+            var yo = [...rows];
+            yo[2][i] = e
+            setRows(yo)
+          }}/>
+          <Row onChange={(e,i) => {
+            var yo = [...rows];
+            yo[3][i] = e
+            setRows(yo)
+          }}/>
+          <Row onChange={(e,i) => {
+            var yo = [...rows];
+            yo[4][i] = e
+            setRows(yo)
+          }}/>
+          <Row onChange={(e,i) => {
+            var yo = [...rows];
+            yo[5][i] = e
+            setRows(yo)
+          }}/>
         </div>
+          
+          <div>
+          <br/>
+        <h2>Suggested Words:</h2>
+          <Suggested data= {rows}/>
+          </div>
       </main>
 
       <footer className={styles.footer}>
