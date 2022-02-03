@@ -7,10 +7,21 @@ import Solver from 'wordle-solver'
 
 
 
-function Suggested() {
+function Suggested(props) {
+  var data = props.data
+  var solver = new Solver()
+
+  data.forEach((e) => {
+    if(e[0].length == 5 && e[1].length == 5) solver.guess(e[0], e[1])
+  })
+
+
+
   return (
     <div>
-
+    {solver.getNextBestGuesses(5).join(", ")}
+    <br/>
+      {solver.oldSolver(5).join(", ")}
       </div>
   )
 }
@@ -19,9 +30,9 @@ function Row(props) {
   return (
     <div>
     <TextField onChange = {(e) => {
-      props.onChange(e.target.value, 0)
+      if(e.target.value.length == 5 || e.target.value.length == 0) props.onChange(e.target.value, 0)
     }} placeholder="Guess"/>  &nbsp; &nbsp; <TextField  onChange = {(e) => {
-      props.onChange(e.target.value, 1)
+      if(e.target.value.length == 5 || e.target.value.length == 0) props.onChange(e.target.value, 1)
     }} placeholder="Output"/>
     <br/>
     </div>
